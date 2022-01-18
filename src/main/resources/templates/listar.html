@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymleaf.org'>
+<head th:replace="layoutMenus/layoutmenu ::head"></head>
+<body>
+
+
+
+	
+	<!-- empieza menu -->
+	<header th:replace="layoutMenus/layoutmenu ::header">	</header> <!-- toma el fragmento del html layoutmenu.html  con thymeleaf  -->
+
+
+	<!-- termnina menu -->
+	
+	<div class="container py-4">
+
+	<div class="card bg-light">
+	<div class="card-header"  th:text="${titulo}"> </div>
+		<div class="card-body">
+	
+	<!--  	<h1 class="text-primary" th:text="${titulo}"></h1> -->
+	<H4 class="card-tittle">	<a th:href="@{/form}" class="btn btn-primary btn-xs" > Crear Cliente </a>  </H4><!-- link boton --> 
+		
+		<table class="table table-striped">
+			
+			
+		<thead class="thead-dark">
+		
+				<tr>
+					<th>id</th>
+					<th>nombre</th>
+					<th>apellido</th>
+					<th>correo</th>
+					<th>fecha</th>
+					<th>crear factura</th>
+					<th>editar</th>
+					<th>eliminar</th>
+				</tr>
+		</thead>
+
+				<tbody>
+					<tr th:each="cliente: ${clientes}">
+						<!--  por cada cliente del elemento de la lista clientes del objeto CLIENTE-->
+						<td >  
+								 <a class="btn btn-primary btn-xs" th:href="@{/ver/} + ${cliente.id}" th:text= ${cliente.id}> </a>
+						</td>
+						
+						<td th:text="${cliente.nombre}"></td>
+						<td th:text="${cliente.apellido}"></td>
+						<td th:text="${cliente.email}"></td>
+						<td th:text="${cliente.createAt}"></td>
+						
+						<td><a th:href="@{/factura/formFactura/} + ${cliente.id}" class="btn btn-success btn-xs"> Crear Factura	</a></td>
+						
+						<td><a th:href="@{/formEditar/} + ${cliente.id}" class="btn btn-primary btn-xs"> Editar	</a></td>
+						<td><a th:href="@{/elimina/} + ${cliente.id}" class="btn btn-danger btn-xs" onclick="return confirm('¿Estás seguro de eliminar cliente')"> Eliminar	</a></td>
+					</tr>
+
+				</tbody>
+
+			</table>
+			
+			<nav th:replace="paginator-nav :: paginator"></nav>
+			
+			</div>
+		</div>
+		
+
+
+</body>
+
+
+<footer th:replace="layoutMenus/layoutmenu ::footer"></footer> <!-- incluye librerias de javaScript -->
+	</div>
+</html>

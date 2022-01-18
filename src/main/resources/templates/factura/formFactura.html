@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymleaf.org'>
+<head th:replace="layoutMenus/layoutmenu ::head">
+<meta charset="UTF-8"/>
+
+
+</head>
+<!-- toma el fragmento del html "layoutMenus/layoutmenu" con thymeleaf  -->
+
+
+<body>
+	<!-- empieza menu -->
+	<header th:replace="layoutMenus/layoutmenu ::header"> </header>
+	<!-- toma el fragmento layoutMenus/layoutmenu del html con thymeleaf  -->
+	<!-- termnina menu -->
+
+
+	<!-- empieza formulario -->
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+			
+				<h4 class="card-tittle">
+			<td><a th:href="@{/ver/} + ${factura.cliente.id}" class="btn btn-primary btn-xs" th:text="'&laquo; Volver'"> 	</a></td>
+		</h4>
+
+				<form th:action="@{/factura/formFactura/}" th:object="${factura}"	method="post">
+					<!-- va al form mapeado de tipo POST -->
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Nombre cliente</label>
+							<div class="col-sm-6">
+							<input type="text" 	th:value="${factura.cliente.nombre}+ ' '+ ${factura.cliente.apellido}" class="form-control"  disabled="disabled">
+	
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Descripción</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{descripcion}" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Observación</label>
+						<div class="col-sm-6">
+							<textarea th:field="*{observacion}" class="form-control"> </textarea>
+						</div>
+					</div>
+					
+					
+					<div class="form-group row">
+						<label for="buscar_producto" class="col-sm-2 col-form-label" th:text="'Buscar Producto'"></label>
+						<div class="col-sm-6">
+							<input type="text" name="buscar_producto" id="buscar_producto" class="form-control" />
+						</div>
+					</div>
+					
+					<table th:replace="factura/plantilla-items :: itemsFactura"> </table>
+					
+					<table id="cargarItemProductos" class="table table-sm table-striped table-hover"> 
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Precio</th>
+							<th>Cantidad</th>
+							<th>Total</th>
+							<th>Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>				
+				
+					</tbody>
+					</table>
+					
+					<h5><span class="badge bade-secondary" id="gran_total">0</span> </h5>
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" th:value="${titulo}" class="btn btn-primary" disabled="disabled" />
+						</div>
+
+					</div>
+			</div>
+
+
+
+
+			</form>
+
+		</div>
+	</div>
+
+</body>
+
+<footer th:replace="layoutMenus/layoutmenu::footer"></footer>
+
+<script th:replace="factura/js/autocomplete-productos::javascript"> </script> <!-- manda llamar fragmento -->
+<!-- incluye librerias de javaScript -->
+
+</div>
+
+</html>
